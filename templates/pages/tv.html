@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block head %}
+  <link href="{{ url_for('static', filename='css/style1.css') }}" type="text/css" rel="stylesheet">
+
+{% endblock %}
+{% block body %}
+<div class="container-fluid h-100 w-100" style="background:transparent url('../../static/images/Qbackground.jpg') no-repeat center center /cover">
+<div class="row" style="padding-top: 30px;padding-bottom: : 30px">
+  <div class="col">
+    <h2 style = "text-align: center; color:white;  ">{{ question }}</h2>
+  </div>
+</div>
+<div class = "row" style="padding-top: 40px">
+  <div class= "col-sm-4 offset-md-1">
+  <form action = "{{url_for('tv')}}" method = "POST">
+     <fieldset>
+
+        {{ form.hidden_tag() }}
+
+        <div style = "font-size:20px; font-weight:bold; color:white;">
+         {% if flag=='s' %}
+         <p>
+            {{ form.slider.label }}:
+            {{ form.slider(min=min_, max=max_ , oninput="outputUpdate(value)", class_="customRange1", value=(min_+max_)/2) }}
+
+            <output for="slider" id="sliderVal">{{ form.slider.data }}</output>
+         </p>
+         {% endif %}
+         {% if flag=='m' %}
+         <p>
+             {{ form.Options }}
+         </p>
+         {% endif %}
+
+
+           {{ form.submit }}
+        </div>
+
+     </fieldset>
+  </form>
+</div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+function outputUpdate(slid) {
+  document.querySelector('#sliderVal').value = Math.round(slid, 1);
+}
+</script>
+{% endblock %}
